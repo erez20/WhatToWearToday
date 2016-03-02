@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    // a comment from the laptop
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
