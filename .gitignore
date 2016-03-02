@@ -1,0 +1,5 @@
+*.class
+*.jar
+cat > .gitignore 
+*.class
+*.jar
