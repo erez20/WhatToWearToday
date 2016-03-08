@@ -11,12 +11,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kiss.hackathontlv.whattoweartoday.internet.CityRetriever;
+import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
+import com.kiss.hackathontlv.whattoweartoday.internet.cityInfoFromInternet;
 
 /**
  * Created by erez on 07/03/16.
  */
-public class SettingsFragment extends Fragment implements View.OnClickListener, CityRetriever.onCityRerieveInterface {
+public class SettingsFragment extends Fragment implements View.OnClickListener, cityInfoFromInternet.onCityRerieveInterface {
     private Context context;
     ImageView citySendIV;
     EditText cityET;
@@ -34,9 +35,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        // View root = inflater.inflate(R.layout.fragment_settings, null);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
+
         cityET = (EditText) root.findViewById(R.id.cityET);
+        CityDetails cityDetails = CityDetails.retrieveFromPrfences(context);
+        if (cityDetails != null)
+            cityET.setText(cityDetails.getName());
         citySendIV = (ImageView) root.findViewById(R.id.cityIV);
         citySendIV.setOnClickListener(this);
+
         return root;
 
     }
@@ -45,15 +51,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
         if (citySendIV == v) {
-            CityRetriever cityRetriever = new CityRetriever(this, cityET.getText().toString());
+            cityInfoFromInternet cityRetriever = new cityInfoFromInternet(this, cityET.getText().toString());
         }
     }
 
 
     @Override
-    public void onCityRetrieveOK(String retrievedCity) {
-        Toast.makeText(getContext(),retrievedCity, Toast.LENGTH_SHORT).show();
+    public void onCityRetrieveOK(CityDetails cityDetails) {
+        cityET.setText(cityDetails.getName());
+        cityDetails.saveToPrefences(context);
     }
+
 
     @Override
     public void onCityRetrieveError(String error) {
