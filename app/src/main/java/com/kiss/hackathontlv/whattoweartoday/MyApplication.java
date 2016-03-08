@@ -19,7 +19,7 @@ public class MyApplication extends Application {
         return instace;
     }
 
-    public static Context getAppContext() {
+    public synchronized static Context getAppContext() {
         return getInstance().getApplicationContext();
     }
 }
