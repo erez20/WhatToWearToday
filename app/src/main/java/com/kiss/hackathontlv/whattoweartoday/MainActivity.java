@@ -15,8 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
+import com.kiss.hackathontlv.whattoweartoday.internet.WeatherFromInternet;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, WeatherFromInternet.onWeatherOkInterface {
     private static final String SETTINGS_TRANSACTION = "SETTINGS_TRANSACTION";
     FragmentManager fragmentManager;
     Toolbar toolbar;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         handleFab();
         handleNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
+
 
 
     }
@@ -110,5 +114,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClick(View view) {
+        CityDetails cityDetails = CityDetails.retrieveFromPrfences(this);
+        WeatherFromInternet  weatherFromInternet = new WeatherFromInternet(this, cityDetails);
+     }
+
+    @Override
+    public void onWeatherOK(String weatherJSONAsString) {
+        Toast.makeText(MainActivity.this,weatherJSONAsString, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onWeatherError(String Error) {
+        Toast.makeText(MainActivity.this, Error, Toast.LENGTH_SHORT).show();
+
     }
 }

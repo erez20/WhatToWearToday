@@ -21,7 +21,7 @@ import java.net.URLEncoder;
 /**
  * Created by erez on 07/03/16.
  */
-public class cityInfoFromInternet {
+public class CityInfoFromInternet {
 
 //    private static final String baseUrlString = "https://maps.googleapis.com/maps/api/geocode/json?&address=";
     private static final String baseUrlString = "maps.googleapis.com/maps/api/geocode/json?&address=";
@@ -35,7 +35,7 @@ public class cityInfoFromInternet {
 
     }
 
-    public cityInfoFromInternet(final onCityRerieveInterface listener, String cityFromUser) {
+    public CityInfoFromInternet(final onCityRerieveInterface listener, String cityFromUser) {
         try {
             URI uri = new URI("http",baseUrlString, "/"+cityFromUser+"/","");
             URL url = uri.toURL();

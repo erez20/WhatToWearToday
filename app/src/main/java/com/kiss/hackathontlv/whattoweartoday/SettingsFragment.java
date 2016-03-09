@@ -12,12 +12,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
-import com.kiss.hackathontlv.whattoweartoday.internet.cityInfoFromInternet;
+import com.kiss.hackathontlv.whattoweartoday.internet.CityInfoFromInternet;
 
 /**
  * Created by erez on 07/03/16.
  */
-public class SettingsFragment extends Fragment implements View.OnClickListener, cityInfoFromInternet.onCityRerieveInterface {
+public class SettingsFragment extends Fragment implements View.OnClickListener, CityInfoFromInternet.onCityRerieveInterface {
     private Context context;
     ImageView citySendIV;
     EditText cityET;
@@ -51,7 +51,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
         if (citySendIV == v) {
-            cityInfoFromInternet cityRetriever = new cityInfoFromInternet(this, cityET.getText().toString());
+            CityInfoFromInternet cityRetriever = new CityInfoFromInternet(this, cityET.getText().toString());
         }
     }
 
