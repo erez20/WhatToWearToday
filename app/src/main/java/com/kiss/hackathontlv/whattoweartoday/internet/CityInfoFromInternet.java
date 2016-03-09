@@ -11,12 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * Created by erez on 07/03/16.
@@ -26,7 +24,7 @@ public class CityInfoFromInternet {
 //    private static final String baseUrlString = "https://maps.googleapis.com/maps/api/geocode/json?&address=";
     private static final String baseUrlString = "maps.googleapis.com/maps/api/geocode/json?&address=";
 
-    public interface onCityRerieveInterface {
+    public interface onCityRerieveListener {
         public void onCityRetrieveOK(CityDetails cityDetails);
 
         public void onCityRetrieveError(String error);
@@ -35,7 +33,7 @@ public class CityInfoFromInternet {
 
     }
 
-    public CityInfoFromInternet(final onCityRerieveInterface listener, String cityFromUser) {
+    public static void getCityInfoFromInternet(final onCityRerieveListener listener, String cityFromUser) {
         try {
             URI uri = new URI("http",baseUrlString, "/"+cityFromUser+"/","");
             URL url = uri.toURL();
@@ -68,7 +66,7 @@ public class CityInfoFromInternet {
         }
     }
 
-    private void handleOKResponse(onCityRerieveInterface listener, String response) {
+    private static void handleOKResponse(onCityRerieveListener listener, String response) {
         try {
             JSONObject mainJsonObject = new JSONObject(response);
             if (mainJsonObject.getString("status").equals("OK")) {

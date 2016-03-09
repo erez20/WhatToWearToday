@@ -3,7 +3,9 @@ package com.kiss.hackathontlv.whattoweartoday;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,32 +18,64 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
+import com.kiss.hackathontlv.whattoweartoday.fragments.MainFragment;
+import com.kiss.hackathontlv.whattoweartoday.fragments.SettingsFragment;
 import com.kiss.hackathontlv.whattoweartoday.internet.WeatherFromInternet;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, WeatherFromInternet.onWeatherOkInterface {
+        implements NavigationView.OnNavigationItemSelectedListener {
     private static final String SETTINGS_TRANSACTION = "SETTINGS_TRANSACTION";
     FragmentManager fragmentManager;
     Toolbar toolbar;
     FloatingActionButton fab;
     DrawerLayout drawer;
     SettingsFragment settingsFragment;
+    SettingsFragment settingFragment;
+    MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        settingFragment = new SettingsFragment();
+        mainFragment = new MainFragment();
         handleToolbar();
         handleFab();
         handleNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
-
+        openMainFragment();
 
 
     }
 
+    private void openMainFragment() {
+        fragmentManager.beginTransaction().add(R.id.container, mainFragment).commit();
+        toolbar.setNavigationIcon(mainFragment.getNavigationIcon());
+    }
+
+    public void isToolbarNavigtionOpenDrawer(Boolean isDrawer) {
+        if (isDrawer) {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawer.openDrawer(Gravity.LEFT);
+
+                }
+            });
+        } else {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+
+                }
+            });
+
+        }
+    }
+
     private void handleNavigationDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -105,10 +139,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_setting) {
-            fragmentManager.beginTransaction().
-                    addToBackStack(SETTINGS_TRANSACTION).
-                    add(R.id.container, new SettingsFragment()).
-                    commit();
+            openSettingFragment();
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,19 +147,19 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void onClick(View view) {
-        CityDetails cityDetails = CityDetails.retrieveFromPrfences(this);
-        WeatherFromInternet  weatherFromInternet = new WeatherFromInternet(this, cityDetails);
-     }
-
-    @Override
-    public void onWeatherOK(String weatherJSONAsString) {
-        Toast.makeText(MainActivity.this,weatherJSONAsString, Toast.LENGTH_SHORT).show();
+    private void openSettingFragment() {
+        fragmentManager.beginTransaction().
+                addToBackStack(SETTINGS_TRANSACTION).
+                replace(R.id.container, settingFragment).
+                commit();
     }
 
-    @Override
-    public void onWeatherError(String Error) {
-        Toast.makeText(MainActivity.this, Error, Toast.LENGTH_SHORT).show();
+    public void setToolbarNavigationIcon(int icon) {
+        toolbar.setNavigationIcon(icon);
 
     }
+
+    ;
+
+
 }
