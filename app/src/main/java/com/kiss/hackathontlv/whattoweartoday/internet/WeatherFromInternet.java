@@ -11,7 +11,7 @@ import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
  * Created by erez on 08/03/16.
  */
 public class WeatherFromInternet {
-    private static final String baseUrlString = "http://api.openweathermap.org/data/2.5/forecast?";
+    private static final String baseUrlString = "http://api.openweathermap.org/data/2.5/forecast?units=metric&";
     private static final String appid = "dc4c6633970461e98ae7bc382eb546a9";
     onWeatherOkListener listener;
 
