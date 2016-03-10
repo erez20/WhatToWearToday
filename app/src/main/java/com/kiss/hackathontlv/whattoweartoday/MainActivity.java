@@ -1,10 +1,12 @@
 package com.kiss.hackathontlv.whattoweartoday;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,12 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
+import com.kiss.hackathontlv.whattoweartoday.adapters.ViewPagerAdapter;
 import com.kiss.hackathontlv.whattoweartoday.fragments.MainFragment;
 import com.kiss.hackathontlv.whattoweartoday.fragments.SettingsFragment;
-import com.kiss.hackathontlv.whattoweartoday.internet.WeatherFromInternet;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,18 +40,32 @@ public class MainActivity extends AppCompatActivity
         settingFragment = new SettingsFragment();
         mainFragment = new MainFragment();
         handleToolbar();
+        handleTabs();
         handleFab();
         handleNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
-        openMainFragment();
+        //openMainFragment();
 
 
     }
 
-    private void openMainFragment() {
+    private void handleTabs() {
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MainFragment(),"Test");
+        viewPager.setAdapter(adapter);
+    }
+
+    /*private void openMainFragment() {
         fragmentManager.beginTransaction().add(R.id.container, mainFragment).commit();
         toolbar.setNavigationIcon(mainFragment.getNavigationIcon());
-    }
+    }*/
 
     public void isToolbarNavigtionOpenDrawer(Boolean isDrawer) {
         if (isDrawer) {
@@ -139,7 +153,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_setting) {
-            openSettingFragment();
+            openSettingActivity();
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -147,19 +161,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void openSettingFragment() {
-        fragmentManager.beginTransaction().
-                addToBackStack(SETTINGS_TRANSACTION).
-                replace(R.id.container, settingFragment).
-                commit();
+    private void openSettingActivity() {
+        Intent intent = new Intent(this,SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void setToolbarNavigationIcon(int icon) {
         toolbar.setNavigationIcon(icon);
 
     }
-
-    ;
-
 
 }
