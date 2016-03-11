@@ -22,17 +22,15 @@ import org.json.JSONObject;
 
 /**
  * Created by erez on 09/03/16.
+ *
  */
 public class MainFragment extends Fragment implements  WeatherFromInternet.onWeatherOkListener, View.OnClickListener {
     MainActivity mainActivity;
-    Button button;
     View root;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_main, container, false);
-        button = (Button) root.findViewById(R.id.button);
-        button.setOnClickListener(this);
         return root;
 
     }
