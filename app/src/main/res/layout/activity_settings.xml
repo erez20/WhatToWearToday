@@ -56,6 +56,35 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timePicker"
+                android:layout_weight="1"
+                />
+
+
+            <ImageView
+                android:id="@+id/notificationTimeIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/send"
+                android:layout_gravity="right"
+                android:clickable="true"
+                />
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

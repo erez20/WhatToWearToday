@@ -48,7 +48,6 @@ public class FiveDaysForcast implements WeatherConstant {
 
                 int id = jsonWeatherFirstObject.getInt("id");
                 String skyDescription = jsonWeatherFirstObject.getString("description");
-                Log.e("moshe", timeStamp);
                 threeHoursForcastList.add(new ThreeHoursForcast(timeStamp, id, skyDescription, maxTemp, minTemp));
 
             }
@@ -61,7 +60,7 @@ public class FiveDaysForcast implements WeatherConstant {
         Calendar calendar = GregorianCalendar.getInstance();
         Date date = calendar.getTime();
 
-        if (date.getHours()>17 && date.getHours()<24)
+        if (date.getHours()>=18 && date.getHours()<24)
             return moreDaysWear(1);
         else
             return TodayWear();
