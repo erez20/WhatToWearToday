@@ -55,12 +55,19 @@ public class MainActivity extends AppCompatActivity
         handleTabs();
         handleNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
-        CityDetails cityDetails = CityDetails.retrieveFromPrfences(this);
-        WeatherFromInternet.getWeatherFromInternet(this, cityDetails);
 
         //openMainFragment();
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CityDetails cityDetails = CityDetails.retrieveFromPrfences(this);
+        if (cityDetails != null) {
+            WeatherFromInternet.getWeatherFromInternet(this, cityDetails);
+        }
     }
 
     private void handleTabs() {
@@ -181,11 +188,6 @@ public class MainActivity extends AppCompatActivity
             JSONObject JSONWhole = new JSONObject(weatherJSONAsString);
             FiveDaysForcast.getInstance(JSONWhole);
             forcastFragment.notifyDataSetChanged();
-            Log.e("EEEEE", FiveDaysForcast.getInstance(null).whatToWearTodayOrTomorrow().toString());
-            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(1).toString());
-            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(2).toString());
-            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(3).toString());
-            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(4).toString());
 
 
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by erez on 10/03/16.
@@ -67,11 +68,12 @@ public class FiveDaysForcast implements WeatherConstant {
     }
 
     private WhatToWearData TodayWear() {
-        Calendar calendar = GregorianCalendar.getInstance();
+        Calendar calendar = GregorianCalendar.getInstance(Locale.getDefault());
         long minUnixTimeDiv1000 = calendar.getTimeInMillis()/1000;
         calendar.set(Calendar.HOUR, 18);
         long maxUnixTimeDiv1000 = calendar.getTimeInMillis()/1000;
-        return  WhatToWearBetweenTimes(minUnixTimeDiv1000, maxUnixTimeDiv1000,true);
+        return  WhatToWearBetweenTimes(minUnixTimeDiv1000, maxUnixTimeDiv1000,true,
+                calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US));
     }
 
     public WhatToWearData moreDaysWear(int moreDays) {
@@ -81,10 +83,12 @@ public class FiveDaysForcast implements WeatherConstant {
         long minUnixTimeDiv1000 = calendar.getTimeInMillis()/1000;
         calendar.set(Calendar.HOUR, 18);
         long maxUnixTimeDiv1000 = calendar.getTimeInMillis()/1000;
-        return  WhatToWearBetweenTimes(minUnixTimeDiv1000, maxUnixTimeDiv1000,false);
+        return  WhatToWearBetweenTimes(minUnixTimeDiv1000, maxUnixTimeDiv1000,false,
+                calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US));
+
     }
 
-    private WhatToWearData WhatToWearBetweenTimes(long minUnixTimeDiv1000, long maxUnixTimeDiv1000, Boolean isDataForToday) {
+    private WhatToWearData WhatToWearBetweenTimes(long minUnixTimeDiv1000, long maxUnixTimeDiv1000, Boolean isDataForToday, String day) {
         Boolean isToday = isDataForToday;
         Boolean isScarf = false;
         Boolean isCoat = false;
@@ -93,6 +97,7 @@ public class FiveDaysForcast implements WeatherConstant {
         int minTemp  = 5000;
         int maxTemp  = -5000;
         int sky = 1;
+
 
         for (ThreeHoursForcast threeHoursForcast : threeHoursForcastList) {
             Log.e("MMMM",threeHoursForcast.dateAsLong +"  " +minUnixTimeDiv1000+  "  " + maxUnixTimeDiv1000);
@@ -114,7 +119,7 @@ public class FiveDaysForcast implements WeatherConstant {
 
         }
 
-        return new WhatToWearData(isToday,  isScarf,  isCoat,  isBoot,  isHat, sky, minTemp, maxTemp) ;
+        return new WhatToWearData(isToday,  isScarf,  isCoat,  isBoot,  isHat, sky, minTemp, maxTemp,day) ;
 
     }
 
