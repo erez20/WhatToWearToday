@@ -81,8 +81,8 @@ public class ForcastAdapter extends ArrayAdapter implements WeatherConstant {
                 convertView.findViewById(R.id.hatID).setVisibility(View.VISIBLE);
             if (forcast.getIsScarf())
                 convertView.findViewById(R.id.scarfID).setVisibility(View.VISIBLE);
-            ((TextView) convertView.findViewById(R.id.temp_tv)).
-                    setText("" + (forcast.getMinTemp() + forcast.getMaxTemp()) / 2);
+            String tempStr = ((forcast.getMinTemp() + forcast.getMaxTemp()) / 2)+"";
+                ((TextView) convertView.findViewById(R.id.temp_tv)).setText(tempStr);
             ((TextView) convertView.findViewById(R.id.day_tv)).setText(forcast.getDayHumanRead());
 
             ImageView skyIV = (ImageView) convertView.findViewById(R.id.weather_iv);
