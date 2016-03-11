@@ -70,7 +70,7 @@ public class ForcastAdapter extends ArrayAdapter {
         }
 
         if (FiveDaysForcast.getInstance(null) != null) {
-            WhatToWearData forcast = FiveDaysForcast.getInstance(null).moreDaysWear(position);
+            WhatToWearData forcast = FiveDaysForcast.getInstance(null).moreDaysWear(position+1);
             if (forcast.getIsBoot())
                 convertView.findViewById(R.id.bootsID).setVisibility(View.VISIBLE);
             if (forcast.getIsCoat())
@@ -81,6 +81,7 @@ public class ForcastAdapter extends ArrayAdapter {
                 convertView.findViewById(R.id.scarfID).setVisibility(View.VISIBLE);
             ((TextView)convertView.findViewById(R.id.temp_tv)).
                     setText(""+ (forcast.getMinTemp() + forcast.getMaxTemp())/2);
+            ((TextView)convertView.findViewById(R.id.day_tv)).setText(forcast.getDayHumanRead());
         }
 
         return convertView;

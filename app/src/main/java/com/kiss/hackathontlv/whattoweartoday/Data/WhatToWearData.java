@@ -12,6 +12,7 @@ public class WhatToWearData {
     int minTemp;
     int maxTemp;
     int sky;
+    String dayHumanRead;
 
     public Boolean getIsToday() {
         return isToday;
@@ -45,8 +46,12 @@ public class WhatToWearData {
         return maxTemp;
     }
 
+    public String getDayHumanRead() {
+        return dayHumanRead;
+    }
+
     public WhatToWearData(Boolean isToday, Boolean isScarf, Boolean isCoat,
-                          Boolean isBoot, Boolean isHat, int sky, int minTemp, int maxTemp) {
+                          Boolean isBoot, Boolean isHat, int sky, int minTemp, int maxTemp, String dayHumanRead) {
         this.isToday = isToday;
         this.isScarf = isScarf;
         this.isCoat = isCoat;
@@ -55,6 +60,7 @@ public class WhatToWearData {
         this.sky = sky;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
+        this.dayHumanRead = dayHumanRead;
     }
 
     @Override
