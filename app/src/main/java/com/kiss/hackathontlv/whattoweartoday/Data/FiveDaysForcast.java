@@ -99,7 +99,7 @@ public class FiveDaysForcast implements WeatherConstant {
 
 
         for (ThreeHoursForcast threeHoursForcast : threeHoursForcastList) {
-            Log.e("MMMM",threeHoursForcast.dateAsLong +"  " +minUnixTimeDiv1000+  "  " + maxUnixTimeDiv1000);
+            //Log.e("MMMM",threeHoursForcast.dateAsLong +"  " +minUnixTimeDiv1000+  "  " + maxUnixTimeDiv1000);
             if (threeHoursForcast.dateAsLong >= minUnixTimeDiv1000 && threeHoursForcast.dateAsLong <= maxUnixTimeDiv1000) {
                 if (threeHoursForcast.minTemp < 10) {
                     isScarf = true;
