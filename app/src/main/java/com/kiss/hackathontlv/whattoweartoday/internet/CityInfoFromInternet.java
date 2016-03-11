@@ -1,11 +1,16 @@
 package com.kiss.hackathontlv.whattoweartoday.internet;
 
+import android.app.ProgressDialog;
+import android.support.design.widget.Snackbar;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
+import com.kiss.hackathontlv.whattoweartoday.MyApplication;
+import com.kiss.hackathontlv.whattoweartoday.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,14 +59,11 @@ public class CityInfoFromInternet {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             listener.onCityRetrieveError(error.getMessage());
-
                         }
                     }
             );
             requestQueue.add(stringRequestText);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
     }

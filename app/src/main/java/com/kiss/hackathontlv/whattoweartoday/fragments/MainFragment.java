@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
@@ -31,6 +32,11 @@ public class MainFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_main, container, false);
+        TextView textView = (TextView)root.findViewById(R.id.location_tv);
+        CityDetails city = CityDetails.retrieveFromPrfences(getContext());
+        if(city != null){
+            textView.setText(city.getName());
+        }
         return root;
 
     }

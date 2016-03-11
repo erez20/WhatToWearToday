@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/settings_coordinator_layout"
     tools:context=".SettingsActivity">
 
     <LinearLayout
@@ -22,38 +23,40 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:titleTextColor="@color/textColorWhite"
-                app:navigationIcon="@color/textColorWhite"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </android.support.design.widget.AppBarLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/cityTV"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="City" />
+                android:textSize="19sp"
+                android:text="@string/city" />
 
             <EditText
                 android:id="@+id/cityET"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:hint="@string/type_your_city"
+                android:singleLine="true"
+                android:imeOptions="actionGo"/>
 
-            <ImageView
-                android:id="@+id/cityIV"
-                android:layout_width="0dp"
+            <Button
+                android:textColor="@color/colorAccent"
+                android:id="@+id/city_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/send"
+                android:drawableEnd="@drawable/send"
+                android:drawableRight="@drawable/send"
+                android:background="@android:color/white"
                 android:clickable="true"
+                android:text="@string/save"
                 />
-
         </LinearLayout>
 
         <LinearLayout
@@ -63,15 +66,15 @@
 
 
 
-            <TimePicker
+            <!--<TimePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/timePicker"
                 android:layout_weight="1"
-                />
+                />-->
 
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/notificationTimeIV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +82,7 @@
                 android:src="@drawable/send"
                 android:layout_gravity="right"
                 android:clickable="true"
-                />
+                />-->
 
         </LinearLayout>
 

@@ -98,7 +98,7 @@ public class ForcastAdapter extends ArrayAdapter implements WeatherConstant {
                     backgrooudResource = R.drawable.weather_p5;
                     break;
                 case SKY_SNOW:
-                    backgrooudResource = R.drawable.snow;
+                    backgrooudResource = R.drawable.weather_p4;
                     break;
                 case SKY_CLEAR:
                     backgrooudResource = R.drawable.weather_p3;
