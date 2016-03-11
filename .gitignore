@@ -1,5 +1,8 @@
 *.class
 *.jar
-cat > .gitignore 
-*.class
-*.jar
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/build
