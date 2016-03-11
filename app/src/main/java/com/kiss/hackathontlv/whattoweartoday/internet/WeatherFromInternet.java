@@ -9,6 +9,7 @@ import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
 
 /**
  * Created by erez on 08/03/16.
+ *
  */
 public class WeatherFromInternet {
     private static final String baseUrlString = "http://api.openweathermap.org/data/2.5/forecast?units=metric&";
@@ -22,29 +23,31 @@ public class WeatherFromInternet {
 
 
     public static void getWeatherFromInternet(final onWeatherOkListener listener, CityDetails cityDetails) {
-        String url = baseUrlString + "lat=" + cityDetails.getLat() + "&lon=" + cityDetails.getLng() + "&appid=" + appid;
-        RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
-        StringRequest stringRequestText = new StringRequest(
-                Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        if(cityDetails != null){
+            String url = baseUrlString + "lat=" + cityDetails.getLat() + "&lon=" + cityDetails.getLng() + "&appid=" + appid;
+            RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
+            StringRequest stringRequestText = new StringRequest(
+                    Request.Method.GET,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                        listener.onWeatherOK(response);
+                            listener.onWeatherOK(response);
+                        }
                     }
-                }
-                ,
-                new Response.ErrorListener() {
+                    ,
+                    new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        listener.onWeatherError(error.getMessage());
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            listener.onWeatherError(error.getMessage());
 
+                        }
                     }
-                }
-        );
-        requestQueue.add(stringRequestText);
+            );
+            requestQueue.add(stringRequestText);
+        }
 
 
     }
