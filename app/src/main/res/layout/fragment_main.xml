@@ -5,8 +5,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_kid_bg"
     android:id="@+id/main_fragment_layout">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="-10dp"
+        android:src="@drawable/main_kid_bg"
+        android:layout_alignParentBottom="true"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
