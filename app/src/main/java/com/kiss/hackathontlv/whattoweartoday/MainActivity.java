@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,13 +18,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.kiss.hackathontlv.whattoweartoday.Data.CityDetails;
+import com.kiss.hackathontlv.whattoweartoday.Data.FiveDaysForcast;
 import com.kiss.hackathontlv.whattoweartoday.adapters.ViewPagerAdapter;
+import com.kiss.hackathontlv.whattoweartoday.fragments.ForcastFragment;
 import com.kiss.hackathontlv.whattoweartoday.fragments.MainFragment;
 import com.kiss.hackathontlv.whattoweartoday.fragments.SettingsFragment;
+import com.kiss.hackathontlv.whattoweartoday.internet.WeatherFromInternet;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, WeatherFromInternet.onWeatherOkListener {
     private static final String SETTINGS_TRANSACTION = "SETTINGS_TRANSACTION";
     FragmentManager fragmentManager;
     Toolbar toolbar;
@@ -32,11 +41,14 @@ public class MainActivity extends AppCompatActivity
     SettingsFragment settingsFragment;
     SettingsFragment settingFragment;
     MainFragment mainFragment;
+    ForcastFragment forcastFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        forcastFragment = new ForcastFragment();
+
         settingFragment = new SettingsFragment();
         mainFragment = new MainFragment();
         handleToolbar();
@@ -44,6 +56,9 @@ public class MainActivity extends AppCompatActivity
         handleFab();
         handleNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
+        CityDetails cityDetails = CityDetails.retrieveFromPrfences(this);
+        WeatherFromInternet.getWeatherFromInternet(this, cityDetails);
+
         //openMainFragment();
 
 
@@ -58,7 +73,8 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MainFragment(),"Test");
+        adapter.addFragment(new MainFragment(), "Test");
+        adapter.addFragment(forcastFragment, "Forcast");
         viewPager.setAdapter(adapter);
     }
 
@@ -170,5 +186,34 @@ public class MainActivity extends AppCompatActivity
         toolbar.setNavigationIcon(icon);
 
     }
+    @Override
+    public void onWeatherOK(String weatherJSONAsString) {
+        // Toast.makeText(getContext(), weatherJSONAsString, Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject JSONWhole = new JSONObject(weatherJSONAsString);
+            FiveDaysForcast.getInstance(JSONWhole);
+            forcastFragment.notifyDataSetChanged();
+            Log.e("EEEEE", FiveDaysForcast.getInstance(null).whatToWearTodayOrTomorrow().toString());
+            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(1).toString());
+            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(2).toString());
+            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(3).toString());
+            Log.e("EEEEE", FiveDaysForcast.getInstance(null).moreDaysWear(4).toString());
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    @Override
+    public void onWeatherError(String Error) {
+
+
+    }
+
+
+
 
 }
