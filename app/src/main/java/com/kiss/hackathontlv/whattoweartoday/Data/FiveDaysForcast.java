@@ -18,6 +18,8 @@ public class FiveDaysForcast implements WeatherConstant {
     private static FiveDaysForcast instance = null;
 
     public static synchronized FiveDaysForcast getInstance(JSONObject JSONAsString) {
+        if (JSONAsString == null && instance == null)
+            return null;
         if (instance == null)
             instance = new FiveDaysForcast(JSONAsString);
         return instance;
@@ -88,6 +90,8 @@ public class FiveDaysForcast implements WeatherConstant {
         Boolean isCoat = false;
         Boolean isBoot = false;
         Boolean isHat  = false;
+        int minTemp  = 5000;
+        int maxTemp  = -5000;
         int sky = 1;
 
         for (ThreeHoursForcast threeHoursForcast : threeHoursForcastList) {
@@ -102,13 +106,15 @@ public class FiveDaysForcast implements WeatherConstant {
                 if (threeHoursForcast.sky == SKY_RAIN || threeHoursForcast.sky == SKY_SNOW)
                     isBoot = true;
                 sky = Math.max(sky, threeHoursForcast.sky);
+                minTemp = Math.min(minTemp, threeHoursForcast.minTemp);
+                maxTemp = Math.max(maxTemp, threeHoursForcast.maxTemp);
 
 
             }
 
         }
 
-        return new WhatToWearData(isToday,  isScarf,  isCoat,  isBoot,  isHat, sky) ;
+        return new WhatToWearData(isToday,  isScarf,  isCoat,  isBoot,  isHat, sky, minTemp, maxTemp) ;
 
     }
 
