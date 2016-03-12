@@ -19,12 +19,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="165dp"
             android:orientation="horizontal"
             android:baselineAligned="true"
             android:padding="15dp">
             <LinearLayout
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical"
@@ -36,14 +36,14 @@
                     android:layout_height="wrap_content"
                     android:text="Sun"
                     android:textColor="#7b1fa2"
-                    android:textSize="30sp"
+                    android:textSize="44sp"
                     android:fontFamily="Roboto-Light"
                     />
 
                 <ImageView
                     android:id="@+id/weather_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:scaleType="centerInside"
                     android:contentDescription="@string/weather_image"
                      />
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-10°"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:fontFamily="Roboto-Light"
                     />
             </LinearLayout>
@@ -65,50 +65,62 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:fontFamily="Roboto-Light"
+                    android:textSize="21sp"
+                    android:layout_marginTop="20dp"
+                    android:text="It's going to be cold today"/>
 
-                    <CheckBox
-                        android:id="@+id/bootsID"
-                        android:layout_width="60dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/boots_checkbox"
-                        android:button="@null"
-                        android:visibility="visible" />
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <CheckBox
-                        android:id="@+id/coatID"
-                        android:layout_width="60dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/coat_checkbox"
-                        android:button="@null"
-                        android:visibility="gone" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
 
-                    <CheckBox
-                        android:id="@+id/hatID"
-                        android:layout_width="60dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/hat_checkbox"
-                        android:button="@null"
-                        android:visibility="gone" />
+                        <CheckBox
+                            android:id="@+id/bootsID"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/boots_checkbox"
+                            android:button="@null"
+                            android:visibility="visible" />
 
-                    <CheckBox
-                        android:id="@+id/scarfID"
-                        android:layout_width="60dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/scarf_checkbox"
-                        android:button="@null"
-                        android:visibility="gone" />
-                </LinearLayout>
+                        <CheckBox
+                            android:id="@+id/coatID"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/coat_checkbox"
+                            android:button="@null"
+                            android:visibility="gone" />
+
+                        <CheckBox
+                            android:id="@+id/hatID"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/hat_checkbox"
+                            android:button="@null"
+                            android:visibility="gone" />
+
+                        <CheckBox
+                            android:id="@+id/scarfID"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/scarf_checkbox"
+                            android:button="@null"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </HorizontalScrollView>
             </LinearLayout>
         </LinearLayout>
 
